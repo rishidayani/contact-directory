@@ -35,6 +35,7 @@ export class ViewContactComponent implements OnInit {
       this.contactService
         .getContact(this.contactId)
         .subscribe((data: any) => {
+          // console.log(data)
           this.contact = data;
         });
     }

@@ -12,13 +12,13 @@
     <div class="col-sm-4">
       <form #f_add="ngForm" (ngSubmit)="createContact(f_add.value)">
         <div class="mb-2">
-            <input required="true" ngModel name="name" type="text" class="form-control" placeholder="Name">
+            <input required="true" [(ngModel)]="contact.name" name="name" type="text" class="form-control" placeholder="Name">
         </div>
         <div class="mb-2">
-          <input ngModel name="photo" type="text" class="form-control" placeholder="Photo Url">
+          <input [(ngModel)]="contact.photo" name="photo" type="text" class="form-control" placeholder="Photo Url">
         </div>
         <div class="mb-2">
-            <input required="true" ngModel name="mobile" type="number" class="form-control" placeholder="Number">
+            <input required="true" [(ngModel)]="contact.mobile" name="mobile" type="number" class="form-control" placeholder="Number">
         </div>
         <div class="mb-2">
             <input type="submit" class="btn btn-primary" value="Create">
@@ -31,3 +31,4 @@
     </div>
   </div>
 </div>
+<!-- <pre>{{contact | json}}</pre> -->

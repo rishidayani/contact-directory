@@ -12,8 +12,24 @@
         />
       </div>
       <div class="col">
-        <button type="button" class="btn btn-outline-dark" (click)="search1()">Search</button>
+        <button 
+        type="button" 
+        class="btn btn-outline-dark" 
+        (click)="search1()"
+        >Search</button>
+      </div>
+      <div class="col">
+        <input
+          type="text"
+          name="search"
+          id="search"
+          class="form-control"
+          placeholder="Search Contact"
+          (keyup)="search2($event)"
+        />
+        <section class="form-control"></section>
       </div>
     </div>
   </div>
 </form>
+
