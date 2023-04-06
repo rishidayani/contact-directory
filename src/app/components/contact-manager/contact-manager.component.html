@@ -1,0 +1,74 @@
+<div class="container mt-3">
+  <div class="row">
+    <div class="col">
+      <p class="h3 text-primary fw-bold">
+        Contacts
+        <a routerLink="/contacts/add" class="btn btn-primary btn-sm">
+          <!-- <i class="fa fa-plus-circle"></i>  -->
+          New</a
+        >
+      </p>
+      <hr />
+      <app-search></app-search>
+    </div>
+  </div>
+</div>
+
+<!-- error message -->
+<div *ngIf="errorMessage">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <p class="h4 text-danger fw-bold">
+          {{errorMessage}}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  -->
+<div class="container mt-3" *ngIf="!loading && contacts.length>0">
+  <div class="row">
+    <div class="col-md-6" *ngFor="let contact of contacts">
+      <div class="card list-group-item-primary my-2">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-sm-4">
+              <img [src]="contact.photo" alt="An img" class="c-img">
+            </div>
+            <div class="col-sm-7">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  Name: <span class="fw-bold">{{contact.name}}</span>
+                </li>
+                <li class="list-group-item">
+                  Mobile: <span class="fw-bold">{{contact.mobile}}</span>
+                </li>
+                <li class="list-group-item">
+                  Created_at: <span class="fw-bold">{{contact.createdAt}}</span>
+                </li>
+                <li class="list-group-item">
+                  Updated_at: <span class="fw-bold">{{contact.updatedAt}}</span>
+                </li>
+              </ul>
+            </div>
+            <div class="col-sm-1 d-flex flex-column justify-content-center align-items-center">
+                <a routerLink="/contacts/view/{{contact._id}}" class="btn btn-warning my-3">
+                    <i class="fa fa-eye"></i>
+                </a>
+                <a routerLink="/contacts/edit/{{contact._id}}" class="btn btn-success my-3">
+                    <i class="fa fa-pen"></i>
+                </a>
+                <button class="btn btn-danger my-3" type="button" (click)="deleteContact(contact._id)">
+                    <i class="fa fa-trash-alt"></i>
+                </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <pre>{{contacts | json}}</pre> -->

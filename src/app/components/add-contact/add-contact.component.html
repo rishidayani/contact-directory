@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <p class="h3 fw-bold text-primary">Add Contact</p>
+      <hr />
+    </div>
+  </div>
+</div>
+<!-- Create Contact Form -->
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <form #f_add="ngForm" (ngSubmit)="createContact(f_add.value)">
+        <div class="mb-2">
+            <input required="true" ngModel name="name" type="text" class="form-control" placeholder="Name">
+        </div>
+        <div class="mb-2">
+          <input ngModel name="photo" type="text" class="form-control" placeholder="Photo Url">
+        </div>
+        <div class="mb-2">
+            <input required="true" ngModel name="mobile" type="number" class="form-control" placeholder="Number">
+        </div>
+        <div class="mb-2">
+            <input type="submit" class="btn btn-primary" value="Create">
+            <a routerLink="/" class="btn btn-dark ms-2">Close</a>
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-4">
+      <img [src]="contact.photo" alt="" class="c-img">
+    </div>
+  </div>
+</div>

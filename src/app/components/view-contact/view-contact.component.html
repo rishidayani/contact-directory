@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <p class="h3 fw-bold text-primary">View Contact</p>
+      <hr />
+    </div>
+  </div>
+</div>
+
+<!-- Contact Details -->
+<div class="container">
+  <div class="row">
+    <div class="col-sm-2">
+      <img [src]="contact.photo" alt="User Photo" class="c-img">
+    </div>
+    <div class="col-sm-6">
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-primary">Name: <span class="fw-bold">{{contact.name}}</span></li>
+        <li class="list-group-item list-group-item-primary">
+          Mobile: <span class="fw-bold">{{contact.mobile}}</span>
+        </li>
+        <li class="list-group-item list-group-item-primary">
+          Created_at: <span class="fw-bold">{{contact.createdAt}}</span>
+        </li>
+        <li class="list-group-item list-group-item-primary">
+          Last Updated: <span class="fw-bold">{{contact.updatedAt}}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- <pre>{{contact | json}}</pre> -->
+  <div class="row mt-3">
+    <div class="col">
+        <a routerLink="/" class="btn btn-danger">Back</a>
+    </div>
+  </div>
+</div>

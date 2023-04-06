@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <p class="h3 fw-bold text-primary">Edit Contact</p>
+      <hr />
+    </div>
+  </div>
+</div>
+
+<!-- Edit Contact Form -->
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <form #form="ngForm"  (ngSubmit)="submitUpdate(form.value)">
+        <div class="mb-2">
+            <input 
+            required="true"
+            [(ngModel)]="contact.name"
+            [value]="contact.name"
+            name="name"
+            type="text" class="form-control" placeholder="Name">
+        </div>
+        <div class="mb-2">
+          <input [(ngModel)]="contact.photo" [value]="contact.photo" name="photo" type="text" class="form-control" placeholder="Photo Url">
+        </div>
+        <div class="mb-2">
+            <input 
+            required="true"
+            [(ngModel)]="contact.mobile"
+            [value]="contact.mobile"
+            name="mobile"
+            type="number" class="form-control" placeholder="Number">
+        </div>
+        <div class="mb-2">
+            <input type="submit" class="btn btn-primary" value="Update">
+            <a routerLink="/" class="btn btn-dark ms-2">Close</a>
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-4">
+      <img [src]="contact.photo" alt="User Photo" class="c-img">
+    </div>
+  </div>
+</div>
