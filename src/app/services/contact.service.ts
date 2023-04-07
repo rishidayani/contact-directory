@@ -1,6 +1,6 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 // import { IContact } from '../models/IContact';
 
 @Injectable({
@@ -65,8 +65,13 @@ export class ContactService {
   }
 
   public search2 (name: string) {
-    let dataURL: string = `${this.serverUrl}/contacts/search/${name}`
-    return this.httpClient.get(dataURL)
+    let dataURL: string = `${this.serverUrl}/contacts/search2`
+    return this.httpClient.post(dataURL,{payload: name}, {
+      headers: new HttpHeaders({'content-type': 'application/json'})
+    }).pipe(
+      // map(data=> data.payload)
+    )
+    // return this.httpClient.get(dataURL)
   }
 
   public handleError(error: HttpErrorResponse) {

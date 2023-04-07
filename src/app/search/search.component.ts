@@ -6,53 +6,59 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css'],
 })
-export class SearchComponent implements OnInit{
+export class SearchComponent  {
   // public contactId: string  = '642d726af97948af0e7b209f';
   // private serverUrl:string = `http://localhost:3000`
-  contact : IContact | any = {
+  contact: IContact | any = {
     name: '',
     mobile: '',
     createdAt: '',
-    updatedAt: ''
-  }
-  constructor (
-    private contactService: ContactService,
-    private router: Router
-  ){}
-  ngOnInit(): void {
+    updatedAt: '',
+  };
+  contacts: any = [
+    {
+      name: '',
+      mobile: '',
+      createdAt: '',
+      _id: '',
+      updatedAt: '',
+      photo: '',
+    },
+  ];
+  hasQuery: boolean = false;
+  constructor(private contactService: ContactService, private router: Router) {}
 
-  }
-
-  timeoutId: any
-  search(event : Event){
+  timeoutId: any;
+  search(event: Event) {
     if (this.timeoutId) {
-      clearInterval(this.timeoutId)
+      clearInterval(this.timeoutId);
     }
-    this.timeoutId = setTimeout(()=> {
-      this.contactService.search((event.target as HTMLInputElement).value).subscribe((data) => {
-        this.contact = data
+    this.timeoutId = setTimeout(() => {
+      let query: string = (event.target as HTMLInputElement).value;
+      //will match if query is empty or spaces
+      let matchSpaces: any = query.match(/\s*/);
+      if (matchSpaces[0] === query) {
+        this.contacts = [];
+        this.hasQuery = false;
+        return;
+      }
+      this.contactService.search2(query.trim()).subscribe((data) => {
+        this.contacts = data;
+        this.hasQuery = true;
         // console.log(data)
-      })
-    },500)
-  }
-    
-  public search1() {
-    this.router.navigate([`contacts/view/${this.contact[0]._id}`])
-    // console.log('hello');
+        // console.log(this.contacts);
+      });
+    }, 500);
   }
 
-  timeoutId2: any
-  search2 (event: Event) {
-    if (this.timeoutId2) {
-      clearInterval(this.timeoutId2)
-    }
-    this.timeoutId2 = setTimeout(()=> {
-      this.contactService.search2((event.target as HTMLInputElement).value).subscribe((data) => {
-        this.contact = data
-        // console.log(data)
-      })
-    },500)
+  goToContact(name: any) {
+    this.contactService.search(name).subscribe((data) => {
+      this.contact = data;
+      this.router.navigate([`contacts/view/${this.contact[0]._id}`]);
+      // console.log(data);
+    });
+    // console.log(name);
   }
 }

@@ -8,26 +8,14 @@
           id="search"
           class="form-control"
           placeholder="Search Contact"
-          (input)="search($event)"
+          (keyup)="search($event)"
         />
-      </div>
-      <div class="col">
-        <button 
-        type="button" 
-        class="btn btn-outline-dark" 
-        (click)="search1()"
-        >Search</button>
-      </div>
-      <div class="col">
-        <input
-          type="text"
-          name="search"
-          id="search"
-          class="form-control"
-          placeholder="Search Contact"
-          (keyup)="search2($event)"
-        />
-        <section class="form-control"></section>
+        <section class="form-control" *ngIf="hasQuery">
+          <p *ngIf="contacts.length < 1">No Contact with such a name</p>
+          <ul class="list-group" *ngFor="let contact of contacts">
+            <li class="list-group-item"  (click)="goToContact(contact.name)">{{contact.name}} </li>
+          </ul>
+        </section>
       </div>
     </div>
   </div>
