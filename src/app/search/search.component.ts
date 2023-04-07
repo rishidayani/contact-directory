@@ -44,7 +44,7 @@ export class SearchComponent  {
         this.hasQuery = false;
         return;
       }
-      this.contactService.search2(query.trim()).subscribe((data) => {
+      this.contactService.search(query.trim()).subscribe((data) => {
         this.contacts = data;
         this.hasQuery = true;
         // console.log(data)
@@ -54,7 +54,7 @@ export class SearchComponent  {
   }
 
   goToContact(name: any) {
-    this.contactService.search(name).subscribe((data) => {
+    this.contactService.findContact(name).subscribe((data) => {
       this.contact = data;
       this.router.navigate([`contacts/view/${this.contact[0]._id}`]);
       // console.log(data);

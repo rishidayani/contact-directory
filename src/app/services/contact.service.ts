@@ -59,13 +59,13 @@ export class ContactService {
       .pipe(catchError(this.handleError));
   }
 
-  public search (name: string) {
+  public findContact (name: string) {
     let dataURL: string = `${this.serverUrl}/contacts/search/${name}`
     return this.httpClient.get(dataURL)
   }
 
-  public search2 (name: string) {
-    let dataURL: string = `${this.serverUrl}/contacts/search2`
+  public search (name: string) {
+    let dataURL: string = `${this.serverUrl}/contacts/search`
     return this.httpClient.post(dataURL,{payload: name}, {
       headers: new HttpHeaders({'content-type': 'application/json'})
     }).pipe(
