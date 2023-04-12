@@ -1,0 +1,106 @@
+<div class="row">
+    <div class="col-sm-4 ms-5">
+        <div class="alert alert-danger" *ngIf="error">
+            <p>{{error}} </p>
+        </div>
+        <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+            <div *ngIf="!isLoginMode">
+                <div class="form-group my-2">
+                    <label for="userName">User Name: </label>
+                    <input 
+                    type="userName" 
+                    name="userName" 
+                    id="userName" 
+                    class="form-control"
+                    ngModel
+                    required
+                    >
+                </div>
+                <div class="form-group my-2">
+                    <label for="email">Email: </label>
+                    <input 
+                    type="email" 
+                    name="email" 
+                    id="email" 
+                    class="form-control"
+                    ngModel
+                    required
+                    email
+                    >
+                </div>
+                <div class="form-group my-2">
+                    <label for="password">Password: </label>
+                    <input 
+                    type="password" 
+                    name="password" 
+                    id="password" 
+                    class="form-control"
+                    ngModel
+                    required
+                    minlength="6"
+                    >
+                </div>
+                <div class="my-2">
+                    <label for="image">Image URl:</label>
+                    <input [(ngModel)]="user.image" name="image" type="text" class="form-control" placeholder="image Url">
+                </div>
+                <div class="my-2">
+                    <label for="age">Age:</label>
+                    <input type="number" [(ngModel)]="user.age" name="age" class="form-control" placeholder="age">
+                </div>
+                <div class="my-2">
+                    <label for="radio">Gender:</label>
+                    <label for="gender"> Male</label>
+                    <input type="radio" class="mx-1" [(ngModel)]="user.gender" name="gender" value="Male">
+                    <label for="gender">Female</label>
+                    <input type="radio" [(ngModel)]="user.gender" name="gender" value="Female">
+                </div>
+                <div class="form-group my-2">
+                    <button 
+                    class="btn btn-primary me-2" 
+                    type="submit"
+                    [disabled]="!authForm.valid"
+                    >Sign Up</button>
+                    <button class="btn btn-primary" type="button" (click)="onSwitchMode()">Switch to Login</button>
+                </div>
+            </div>
+            <div *ngIf="isLoginMode">
+                <div class="form-group my-2">
+                    <label for="email">Email: </label>
+                    <input 
+                    type="email" 
+                    name="email" 
+                    id="email" 
+                    class="form-control"
+                    ngModel
+                    required
+                    email
+                    >
+                </div>
+                <div class="form-group my-2">
+                    <label for="password">Password: </label>
+                    <input 
+                    type="password" 
+                    name="password" 
+                    id="password" 
+                    class="form-control"
+                    ngModel
+                    required
+                    minlength="6"
+                    >
+                </div>
+                <div class="form-group my-2">
+                    <button 
+                    class="btn btn-primary me-2" 
+                    type="submit"
+                    [disabled]="!authForm.valid"
+                    >Login</button>
+                    <button class="btn btn-primary" type="button" (click)="onSwitchMode()">Switch to Sign Up</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-4 my-5" *ngIf="!isLoginMode">
+        <img [src]="user.image" alt="" class="c-img">
+      </div>
+</div>

@@ -4,6 +4,9 @@ import { AddContactComponent } from './components/add-contact/add-contact.compon
 import { ContactManagerComponent } from './components/contact-manager/contact-manager.component';
 import { EditContactComponent } from './components/edit-contact/edit-contact.component';
 import { ViewContactComponent } from './components/view-contact/view-contact.component';
+import { AuthComponent } from './auth/auth.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 const routes: Routes = [
   {path: '' , redirectTo: 'contacts/admin', pathMatch: 'full'},
@@ -11,6 +14,9 @@ const routes: Routes = [
   {path: 'contacts/add', component: AddContactComponent},
   {path: 'contacts/edit/:contactId', component: EditContactComponent},
   {path: 'contacts/view/:contactId', component: ViewContactComponent},
+  {path: 'contacts/me', component: UserProfileComponent},
+  {path: 'contacts/editProfile', component: EditProfileComponent},
+  {path: 'contacts/auth', component: AuthComponent},
 ];
 
 @NgModule({

@@ -6,7 +6,7 @@ import { ContactService } from 'src/app/services/contact.service';
 @Component({
   selector: 'app-add-contact',
   templateUrl: './add-contact.component.html',
-  styleUrls: ['./add-contact.component.css']
+  styleUrls: ['./add-contact.component.css'],
 })
 export class AddContactComponent implements OnInit {
   public contact = {
@@ -14,27 +14,25 @@ export class AddContactComponent implements OnInit {
     mobile: '',
     createdAt: '',
     _id: '',
-    photo: ''
-  }
-  public errorMessage : string | null  = null
+    photo: '',
+  };
+  public errorMessage: string | null = null;
+  show: boolean = false;
 
-  constructor (
-    private contactService: ContactService,
-    private router: Router    
-    ) {}
+  constructor(private contactService: ContactService, private router: Router) {}
 
-  ngOnInit(): void {
-      
-  }
+  ngOnInit(): void {}
 
   public createContact(val: any) {
-    val.createdAt = new Date()
-    this.contactService.createContact(val).subscribe((data)=> {
-      this.router.navigate(['/']).then()
-    } ,(error) => {
-      this.errorMessage = error
-      this.router.navigate(['/contacts/add']).then()
-    })
+    val.createdAt = new Date();
+    this.contactService.createContact(val).subscribe(
+      (data) => {
+        this.router.navigate(['/']).then();
+      },
+      (error) => {
+        this.errorMessage = error;
+        this.router.navigate(['/contacts/add']).then();
+      }
+    );
   }
-
 }

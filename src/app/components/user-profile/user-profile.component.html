@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <p class="h3 fw-bold text-primary">View Profile</p>
+        <hr />
+      </div>
+    </div>
+  </div>
+  
+  <!-- User Details -->
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-2">
+        <img [src]="user.image" alt="User Photo" class="c-img">
+      </div>
+      <div class="col-sm-6">
+        <ul class="list-group">
+          <li class="list-group-item list-group-item-primary">Name: <span class="fw-bold">{{user.userName}}</span></li>
+          <li class="list-group-item list-group-item-primary">Email: <span class="fw-bold">{{user.email}}</span></li>
+          <li class="list-group-item list-group-item-primary">Age: <span class="fw-bold">{{user.age}}</span></li>
+          <li class="list-group-item list-group-item-primary">Gender: <span class="fw-bold">{{user.gender}}</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col">
+        <a routerLink="/contacts/editProfile" class="btn btn-warning m-3">Edit Profile </a>
+          <a routerLink="/" class="btn btn-danger">Back</a>
+      </div>
+    </div>
+  </div>
+  

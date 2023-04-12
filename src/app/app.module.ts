@@ -11,6 +11,9 @@ import { ViewContactComponent } from './components/view-contact/view-contact.com
 import { HttpClientModule } from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
 import { SearchComponent } from './search/search.component';
+import { AuthComponent } from './auth/auth.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { SearchComponent } from './search/search.component';
     AddContactComponent,
     EditContactComponent,
     ViewContactComponent,
-    SearchComponent
+    SearchComponent,
+    AuthComponent,
+    UserProfileComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

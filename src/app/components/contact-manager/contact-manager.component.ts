@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 import { ContactService } from 'src/app/services/contact.service';
 
 @Component({
@@ -15,15 +18,37 @@ export class ContactManagerComponent implements OnInit {
       createdAt: '',
       _id: '',
       updatedAt: '',
-      photo: ''
+      photo: '',
     },
   ];
+  user: any = {
+    image: '',
+    userName: ''
+  }
   public errorMessage: string | null = null;
+  showDialoge: boolean = false;
 
-  constructor(private contactService: ContactService) {}
+  constructor(
+    private contactService: ContactService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getAllContactsFromServer();
+    this.profile()
+    
+  }
+
+  profile() {
+    this.authService.userProfile().subscribe(
+      (data) => {
+        this.user = data;
+      },
+      (e) => {
+        console.log(e);
+      }
+    );
   }
 
   public getAllContactsFromServer() {
@@ -41,10 +66,37 @@ export class ContactManagerComponent implements OnInit {
     });
   }
   public deleteContact(contactId: string) {
-    if (contactId) {
-      this.contactService.deleteteContact(contactId).subscribe((data) => {
-        this.getAllContactsFromServer();
+    if (window.confirm('Are you sure you want to delete this contact')) {
+      if (contactId) {
+        this.contactService.deleteteContact(contactId).subscribe((data) => {
+          this.getAllContactsFromServer();
+        });
+      }
+    }
+  }
+
+  public deleteUserProfile() {
+    if (window.confirm('Are you sure you want to delete Your profile')) {
+      this.authService.deleteProfile().subscribe(() => {
+        this.router.navigate(['/contacts/auth'])
       });
     }
+  }
+
+  logout() {
+    this.authService.logout().subscribe(
+      () => {
+        // console.log(data);
+        localStorage.removeItem('token');
+      },
+      (e) => {
+        console.log(e);
+      }
+    );
+    this.router.navigate(['/contacts/auth']);
+  }
+
+  openProfileDialogeBox() {
+    this.showDialoge = !this.showDialoge;
   }
 }

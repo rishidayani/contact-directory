@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 // import { IContact } from '../models/IContact';
@@ -10,10 +14,19 @@ export class ContactService {
   private serverUrl: string = `http://localhost:3000`; //Backend Url
 
   constructor(private httpClient: HttpClient) {}
+ 
+
+ 
 
   public getAllContacts() {
+    const options: any = {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    }
+
     let dataURL: string = `${this.serverUrl}/contacts`;
-    return this.httpClient.get(dataURL);
+    return this.httpClient.get(dataURL,options);
   }
 
   // public getAllContacts(): Observable<IContact[]> {
@@ -22,8 +35,13 @@ export class ContactService {
   // }
 
   public getContact(contactId: string) {
+    const options: any = {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    }
     let dataURL: string = `${this.serverUrl}/contacts/${contactId}`;
-    return this.httpClient.get(dataURL);
+    return this.httpClient.get(dataURL, options);
   }
 
   // public getContact(contactId: string): Observable<IContact> {
@@ -32,8 +50,13 @@ export class ContactService {
   // }
 
   public createContact(contact: any) {
+    const options: any = {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    }
     let dataURL: string = `${this.serverUrl}/contacts/add`;
-    return this.httpClient.post(dataURL, contact);
+    return this.httpClient.post(dataURL, contact, options);
   }
 
   // public createContact(contact:IContact): Observable<IContact> {
@@ -43,8 +66,13 @@ export class ContactService {
   // }
 
   public updateContact(contact: any, contactId: any) {
+    const options: any = {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    }
     let dataURL: string = `${this.serverUrl}/contacts/edit/${contactId}`;
-    return this.httpClient.patch(dataURL, contact);
+    return this.httpClient.patch(dataURL, contact, options);
   }
 
   // public updateContact(contact:IContact, contactId:string): Observable<IContact> {
@@ -53,24 +81,46 @@ export class ContactService {
   // }
 
   public deleteteContact(contactId: string): Observable<{}> {
+    const options: any = {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    }
     let dataURL: string = `${this.serverUrl}/contacts/${contactId}`;
     return this.httpClient
-      .delete<{}>(dataURL)
+      .delete<{}>(dataURL, options)
       .pipe(catchError(this.handleError));
   }
 
-  public findContact (name: string) {
-    let dataURL: string = `${this.serverUrl}/contacts/search/${name}`
-    return this.httpClient.get(dataURL)
+  public findContact(name: string) {
+    const options: any = {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    }
+    let dataURL: string = `${this.serverUrl}/contacts/search/${name}`;
+    return this.httpClient.get(dataURL,options);
   }
 
-  public search (name: string) {
-    let dataURL: string = `${this.serverUrl}/contacts/search`
-    return this.httpClient.post(dataURL,{payload: name}, {
-      headers: new HttpHeaders({'content-type': 'application/json'})
-    }).pipe(
+  public search(name: string) {
+    const options: any = {
+      headers: {
+        'Authorization': localStorage.getItem('token')
+      }
+    }
+    let dataURL: string = `${this.serverUrl}/contacts/search`;
+    return this.httpClient
+      .post(
+        dataURL,
+        { payload: name },
+        options
+        // {
+        //   headers: new HttpHeaders({ 'content-type': 'application/json' }),
+        // }
+      )
+      .pipe
       // map(data=> data.payload)
-    )
+      ();
     // return this.httpClient.get(dataURL)
   }
 
