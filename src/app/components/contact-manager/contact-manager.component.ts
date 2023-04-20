@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ContactService } from 'src/app/services/contact.service';
+import { google } from 'googleapis';
 
 @Component({
   selector: 'app-contact-manager',
@@ -23,10 +23,12 @@ export class ContactManagerComponent implements OnInit {
   ];
   user: any = {
     image: '',
-    userName: ''
-  }
+    userName: '',
+  };
   public errorMessage: string | null = null;
   showDialoge: boolean = false;
+  tokenExpirationTimer: any = null;
+  gToken : string | null = localStorage.getItem('gToken');
 
   constructor(
     private contactService: ContactService,
@@ -36,8 +38,9 @@ export class ContactManagerComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllContactsFromServer();
-    this.profile()
-    
+    this.profile();
+    this.autologout();
+    // console.log(this.gToken);
   }
 
   profile() {
@@ -75,10 +78,37 @@ export class ContactManagerComponent implements OnInit {
     }
   }
 
+  exportContacts() {
+    const contactsArray = Array.from(this.contacts); // convert contacts to an array
+    const csvRows = [];
+    const headers = ['name', 'mobile'];
+    csvRows.push(headers.join(','));
+
+    for (const contact of contactsArray) {
+      const values = [
+        contact.name,
+        // contact.email,
+        contact.mobile,
+      ];
+      csvRows.push(values.join(','));
+    }
+
+    const csvString = csvRows.join('\n');
+    const a = document.createElement('a');
+    a.setAttribute(
+      'href',
+      'data:text/csv;charset=utf-8,' + encodeURIComponent(csvString)
+    );
+    a.setAttribute('download', 'contacts.csv');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
   public deleteUserProfile() {
     if (window.confirm('Are you sure you want to delete Your profile')) {
       this.authService.deleteProfile().subscribe(() => {
-        this.router.navigate(['/contacts/auth'])
+        this.router.navigate(['/contacts/auth']);
       });
     }
   }
@@ -88,12 +118,23 @@ export class ContactManagerComponent implements OnInit {
       () => {
         // console.log(data);
         localStorage.removeItem('token');
+        localStorage.removeItem('gToken');
+        if (this.tokenExpirationTimer) {
+          clearTimeout(this.tokenExpirationTimer);
+        }
+        this.tokenExpirationTimer = null;
       },
       (e) => {
         console.log(e);
       }
     );
     this.router.navigate(['/contacts/auth']);
+  }
+
+  autologout() {
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.logout();
+    }, 3599000);
   }
 
   openProfileDialogeBox() {

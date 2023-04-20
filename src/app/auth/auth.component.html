@@ -7,94 +7,111 @@
             <div *ngIf="!isLoginMode">
                 <div class="form-group my-2">
                     <label for="userName">User Name: </label>
-                    <input 
-                    type="userName" 
-                    name="userName" 
-                    id="userName" 
-                    class="form-control"
-                    ngModel
-                    required
-                    >
+                    <input type="userName" name="userName" id="userName" class="form-control" ngModel required>
                 </div>
                 <div class="form-group my-2">
                     <label for="email">Email: </label>
-                    <input 
-                    type="email" 
-                    name="email" 
-                    id="email" 
-                    class="form-control"
-                    ngModel
-                    required
-                    email
-                    >
+                    <input type="email" name="email" id="email" class="form-control" ngModel required email>
                 </div>
                 <div class="form-group my-2">
                     <label for="password">Password: </label>
-                    <input 
-                    type="password" 
-                    name="password" 
-                    id="password" 
-                    class="form-control"
-                    ngModel
-                    required
-                    minlength="6"
-                    >
+                    <input type="password" name="password" id="password" class="form-control"
+                        [(ngModel)]="user.password" #password="ngModel"
+                        [class.is-invalid]="!password.valid && password.touched" required minlength="6">
+                </div>
+                <div class="mb-2 form-group">
+                    <label for="confirmPassword">Confirm Password: </label>
+                    <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" required
+                        minlength="6" (ngModel)="user.password" #confirmPassword="ngModel"
+                        [class.is-invalid]="!confirmPassword.valid && confirmPassword.touched">
+                    <small class="text-danger"
+                        [class.d-none]="(confirmPassword.value == password.value) || !confirmPassword.touched">New
+                        Password and Confirm Password must be same</small>
                 </div>
                 <div class="my-2">
                     <label for="image">Image URl:</label>
-                    <input [(ngModel)]="user.image" name="image" type="text" class="form-control" placeholder="image Url">
+                    <input [(ngModel)]="user.image" name="image" type="text" class="form-control"
+                        placeholder="image Url">
                 </div>
                 <div class="my-2">
                     <label for="age">Age:</label>
                     <input type="number" [(ngModel)]="user.age" name="age" class="form-control" placeholder="age">
                 </div>
                 <div class="my-2">
-                    <label for="radio">Gender:</label>
-                    <label for="gender"> Male</label>
-                    <input type="radio" class="mx-1" [(ngModel)]="user.gender" name="gender" value="Male">
-                    <label for="gender">Female</label>
-                    <input type="radio" [(ngModel)]="user.gender" name="gender" value="Female">
+                    <!-- <legend>Gender:</legend> -->
+                    <input type="radio" class="mx-1" id="male" [(ngModel)]="user.gender" name="gender" value="Male"
+                        checked>
+                    <label for="male"> Male</label>
+                    <input type="radio" class="mx-1" id="female" [(ngModel)]="user.gender" name="gender" value="Female">
+                    <label for="female">Female</label>
                 </div>
+
+                <!-- <div id="g_id_onload"
+                data-client_id="877272810140-p9m45jqdf7d1lnc2rd5tr9ovtq3ti2j3.apps.googleusercontent.com"
+                data-callback="handleCredentialResponse"
+                data-auto_prompt="true"
+                > -->
+                <!-- data-login_uri="http://localhost:4200/contacts/admin" -->
+                <!-- </div> -->
+                <!-- <div class="g_id_signin"
+                data-type="standard"
+                data-size="large"
+                data-theme="filled_blue"
+                data-text="sign_in_with"
+                data-shape="rectangular"
+                data-logo_alignment="left">
+                </div> -->
+                <!-- <div class="g-signin2" data-onsuccess="onSignIn()"></div> -->
                 <div class="form-group my-2">
-                    <button 
-                    class="btn btn-primary me-2" 
-                    type="submit"
-                    [disabled]="!authForm.valid"
-                    >Sign Up</button>
+                    <button class="btn btn-primary me-2" type="submit"
+                        [disabled]="!authForm.valid || (confirmPassword.value !== password.value)">Sign Up</button>
                     <button class="btn btn-primary" type="button" (click)="onSwitchMode()">Switch to Login</button>
                 </div>
             </div>
             <div *ngIf="isLoginMode">
                 <div class="form-group my-2">
                     <label for="email">Email: </label>
-                    <input 
-                    type="email" 
-                    name="email" 
-                    id="email" 
-                    class="form-control"
-                    ngModel
-                    required
-                    email
-                    >
+                    <input type="email" name="email" id="email" class="form-control" ngModel required email>
                 </div>
                 <div class="form-group my-2">
                     <label for="password">Password: </label>
-                    <input 
-                    type="password" 
-                    name="password" 
-                    id="password" 
-                    class="form-control"
-                    ngModel
-                    required
-                    minlength="6"
-                    >
+                    <input type="password" name="password" id="password" class="form-control" ngModel required
+                        minlength="6">
                 </div>
+                <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+                <!-- <div id="g_id_onload"
+                data-client_id="877272810140-p9m45jqdf7d1lnc2rd5tr9ovtq3ti2j3.apps.googleusercontent.com"
+                data-callback="handleCredentialResponse"
+                data-auto_prompt="true">
+                data-login_uri="http://localhost:4200/contacts/admin"
+                </div>
+                <div class="g_id_signin"
+                data-type="standard"
+                data-size="large"
+                data-theme="filled_blue"
+                data-text="sign_in_with"
+                data-shape="rectangular"
+                data-logo_alignment="left">
+                </div> -->
+                <div 
+                id="g_id_onload" 
+                data-client_id="877272810140-p9m45jqdf7d1lnc2rd5tr9ovtq3ti2j3.apps.googleusercontent.com"
+                data-callback="handleCredentialResponse"
+                data-login_uri="http://localhost:4200/contacts/admin"
+                data-auto_prompt="false"
+                ></div>
+                <!-- <div 
+                    class="g_id_signin" 
+                    data-type="standard" 
+                    data-size="large"
+                    data-theme="filled_blue"
+                    data-shape="rectangular" 
+                    data-text="continue_with" 
+                    data-logo_alignment="left"
+                ></div> -->
+
                 <div class="form-group my-2">
-                    <button 
-                    class="btn btn-primary me-2" 
-                    type="submit"
-                    [disabled]="!authForm.valid"
-                    >Login</button>
+                    <button class="btn btn-primary me-2" type="submit" [disabled]="!authForm.valid">Login</button>
                     <button class="btn btn-primary" type="button" (click)="onSwitchMode()">Switch to Sign Up</button>
                 </div>
             </div>
@@ -102,5 +119,5 @@
     </div>
     <div class="col-sm-4 my-5" *ngIf="!isLoginMode">
         <img [src]="user.image" alt="" class="c-img">
-      </div>
+    </div>
 </div>

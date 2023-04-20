@@ -29,10 +29,11 @@
             [(ngModel)]="contact.mobile"
             [value]="contact.mobile"
             name="mobile"
+            min="1000000000"
             type="number" class="form-control" placeholder="Number">
         </div>
         <div class="mb-2">
-            <input type="submit" class="btn btn-primary" value="Update">
+            <button type="submit" [disabled]="!form.valid" class="btn btn-primary" value="Update">Update </button>
             <a routerLink="/" class="btn btn-dark ms-2">Close</a>
         </div>
       </form>

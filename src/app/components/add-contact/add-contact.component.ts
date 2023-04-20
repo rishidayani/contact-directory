@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthComponent } from 'src/app/auth/auth.component';
 // import { IContact } from 'src/app/models/IContact';
 import { ContactService } from 'src/app/services/contact.service';
 

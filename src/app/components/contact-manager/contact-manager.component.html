@@ -3,19 +3,19 @@
     <div class="col">
       <div class="container">
         <div class="row">
-          <div class="col-md-9">
+          <div class="col-md-9" style="margin-top: 12px;">
             <p class="h3 text-primary fw-bold">
-              Contacts
-              <a routerLink="/contacts/add" class="btn btn-primary btn-sm me-2">
+              Contacts 
+              <a routerLink="/contacts/add" class="btn btn-primary btn-sm mx-2">
                 <i class="fa fa-plus-circle"></i>
                 New</a>
             </p>
           </div>
-          <div class="col-md-1" *ngIf="!showDialoge">
-            <img [src]="user.image" alt="Profile Photo" class="p-img">
+          <div class="col-md-2 box">
+            <button class="btn btn-primary" (click)="exportContacts()">Export Contacts</button>
           </div>
-          <div class="col-md-1" (click)="openProfileDialogeBox()">
-            <a class="btn btn-primary fw-bold"><i class="fa-solid fa-angle-down"></i></a>
+          <div class="col-md-1" *ngIf="!showDialoge" (click)="openProfileDialogeBox()">
+            <button class="btn"><img [src]="user.image" alt="Profile Photo" class="p-img"></button>
           </div>
           <section *ngIf="showDialoge">
             <div class="row justify-content-end">
@@ -25,7 +25,8 @@
                     <ul class="list-group">
                       <div class="row">
                         <li style="list-style: none;"><img [src]="user.image" alt="Profile Photo" class="c-img my-3"></li>
-                        <li style="list-style: none;" class="mt-3 h5 text-center text-primary fw-medium">{{user.userName}}</li>
+                        <li style="list-style: none;" class="mt-3 h5 text-center btn btn-outline-primary text-normal fw-bold">{{user.userName}}</li>
+                        <button class="btn btn-outline-primary fw-bold" (click)="openProfileDialogeBox()">Close</button>
                       </div>
                     </ul>
                   </li>
@@ -41,6 +42,12 @@
                           <p class="h3 text-primary fw-bold">
                             <a routerLink="/contacts/editProfile" class="navbar-brand">
                               Edit Profile <i class="fa fa-pen ms-2"></i></a>
+                          </p>
+                        </li>
+                        <li class="list-group-item">
+                          <p class="h3 text-primary fw-bold">
+                            <a routerLink="/contacts/changePassword" class="navbar-brand">
+                              Change Password <i class="fa fa-pen ms-2"></i></a>
                           </p>
                         </li>
                         <li class="list-group-item">
@@ -87,7 +94,7 @@
 <div class="container mt-3" *ngIf="!loading && contacts.length>0">
   <div class="row">
     <div class="col-md-6" *ngFor="let contact of contacts">
-      <div class="card list-group-item-primary my-2">
+      <div class="bg-primary card list-group-item-primary my-2">
         <div class="card-body">
           <div class="row align-items-center">
             <div class="col-sm-4">
@@ -126,5 +133,6 @@
     </div>
   </div>
 </div>
+
 
 <!-- <pre>{{contacts | json}}</pre> -->

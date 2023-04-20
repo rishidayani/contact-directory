@@ -18,10 +18,10 @@
           <input [(ngModel)]="contact.photo" name="photo" type="text" class="form-control" placeholder="Photo Url">
         </div>
         <div class="mb-2">
-            <input required="true" [(ngModel)]="contact.mobile" name="mobile" type="number" class="form-control" placeholder="Number">
+            <input required="true" [(ngModel)]="contact.mobile" min="1000000000" name="mobile" type="number" class="form-control" placeholder="Number">
         </div>
         <div class="mb-2">
-            <input type="submit" class="btn btn-primary" value="Create">
+            <button [disabled]="!f_add.valid" type="submit" class="btn btn-primary" value="Create">Create</button>
             <a routerLink="/" class="btn btn-dark ms-2">Close</a>
         </div>
       </form>

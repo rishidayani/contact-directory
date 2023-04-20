@@ -7,6 +7,7 @@ import { ViewContactComponent } from './components/view-contact/view-contact.com
 import { AuthComponent } from './auth/auth.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 const routes: Routes = [
   {path: '' , redirectTo: 'contacts/admin', pathMatch: 'full'},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'contacts/view/:contactId', component: ViewContactComponent},
   {path: 'contacts/me', component: UserProfileComponent},
   {path: 'contacts/editProfile', component: EditProfileComponent},
+  {path: 'contacts/changePassword', component: ChangePasswordComponent},
   {path: 'contacts/auth', component: AuthComponent},
 ];
 
