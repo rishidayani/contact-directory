@@ -15,7 +15,7 @@
                 </div>
                 <div class="form-group my-2">
                     <label for="password">Password: </label>
-                    <input type="password" name="password" id="password" class="form-control"
+                    <input type="current-password" name="password" id="password" class="form-control"
                         [(ngModel)]="user.password" #password="ngModel"
                         [class.is-invalid]="!password.valid && password.touched" required minlength="6">
                 </div>
@@ -45,23 +45,6 @@
                     <input type="radio" class="mx-1" id="female" [(ngModel)]="user.gender" name="gender" value="Female">
                     <label for="female">Female</label>
                 </div>
-
-                <!-- <div id="g_id_onload"
-                data-client_id="877272810140-p9m45jqdf7d1lnc2rd5tr9ovtq3ti2j3.apps.googleusercontent.com"
-                data-callback="handleCredentialResponse"
-                data-auto_prompt="true"
-                > -->
-                <!-- data-login_uri="http://localhost:4200/contacts/admin" -->
-                <!-- </div> -->
-                <!-- <div class="g_id_signin"
-                data-type="standard"
-                data-size="large"
-                data-theme="filled_blue"
-                data-text="sign_in_with"
-                data-shape="rectangular"
-                data-logo_alignment="left">
-                </div> -->
-                <!-- <div class="g-signin2" data-onsuccess="onSignIn()"></div> -->
                 <div class="form-group my-2">
                     <button class="btn btn-primary me-2" type="submit"
                         [disabled]="!authForm.valid || (confirmPassword.value !== password.value)">Sign Up</button>
@@ -78,29 +61,14 @@
                     <input type="password" name="password" id="password" class="form-control" ngModel required
                         minlength="6">
                 </div>
-                <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
-                <!-- <div id="g_id_onload"
-                data-client_id="877272810140-p9m45jqdf7d1lnc2rd5tr9ovtq3ti2j3.apps.googleusercontent.com"
-                data-callback="handleCredentialResponse"
-                data-auto_prompt="true">
-                data-login_uri="http://localhost:4200/contacts/admin"
-                </div>
-                <div class="g_id_signin"
-                data-type="standard"
-                data-size="large"
-                data-theme="filled_blue"
-                data-text="sign_in_with"
-                data-shape="rectangular"
-                data-logo_alignment="left">
-                </div> -->
-                <div 
+                <!-- <div 
                 id="g_id_onload" 
                 data-client_id="877272810140-p9m45jqdf7d1lnc2rd5tr9ovtq3ti2j3.apps.googleusercontent.com"
                 data-callback="handleCredentialResponse"
                 data-login_uri="http://localhost:4200/contacts/admin"
                 data-auto_prompt="false"
                 ></div>
-                <!-- <div 
+                <div 
                     class="g_id_signin" 
                     data-type="standard" 
                     data-size="large"
@@ -121,3 +89,28 @@
         <img [src]="user.image" alt="" class="c-img">
     </div>
 </div>
+
+<script>
+
+    function handleCredentialResponse(response) {
+        console.log(`hyy`);
+      $.ajax({
+        url: "https://localhost:3000//gAuthenticate",
+        method : 'POST',
+        headers: {
+          authorization : response.credential
+        },
+      })
+      .then((res) => {
+        console.log(res);
+
+        localStorage.setItem('isLoggedin', 'true');
+        localStorage.setItem('USERTOKEN', res.token);
+
+        // window.location.href = "http://localhost:4200/contacts/admin";  
+
+      })
+      .catch(err => {
+      });
+  }
+</script>

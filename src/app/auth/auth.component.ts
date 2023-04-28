@@ -107,7 +107,7 @@ export class AuthComponent implements OnInit {
     this.decodedToken = jwt_decode(idToken);
     // console.log(this.decodedToken);
 
-    this.authService.gAuthenticate(this.decodedToken).subscribe((res: any) => {
+    this.authService.gAuthenticate({decoded :this.decodedToken, idToken}).subscribe((res: any) => {
       this.router.navigate(['/contacts/admin']);
       localStorage.setItem('token', 'Bearer ' + res.token);
     });

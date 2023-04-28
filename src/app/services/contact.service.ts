@@ -12,21 +12,20 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 })
 export class ContactService {
   private serverUrl: string = `http://localhost:3000`; //Backend Url
+  apiUrl = 'https://people.googleapis.com/v1/people/me/connections';
+  personFields = 'names,emailAddresses';
 
   constructor(private httpClient: HttpClient) {}
- 
-
- 
 
   public getAllContacts() {
     const options: any = {
       headers: {
-        'Authorization': localStorage.getItem('token')
-      }
-    }
+        Authorization: localStorage.getItem('token'),
+      },
+    };
 
     let dataURL: string = `${this.serverUrl}/contacts`;
-    return this.httpClient.get(dataURL,options);
+    return this.httpClient.get(dataURL, options);
   }
 
   // public getAllContacts(): Observable<IContact[]> {
@@ -37,9 +36,9 @@ export class ContactService {
   public getContact(contactId: string) {
     const options: any = {
       headers: {
-        'Authorization': localStorage.getItem('token')
-      }
-    }
+        Authorization: localStorage.getItem('token'),
+      },
+    };
     let dataURL: string = `${this.serverUrl}/contacts/${contactId}`;
     return this.httpClient.get(dataURL, options);
   }
@@ -52,9 +51,9 @@ export class ContactService {
   public createContact(contact: any) {
     const options: any = {
       headers: {
-        'Authorization': localStorage.getItem('token')
-      }
-    }
+        Authorization: localStorage.getItem('token'),
+      },
+    };
     let dataURL: string = `${this.serverUrl}/contacts/add`;
     return this.httpClient.post(dataURL, contact, options);
   }
@@ -68,9 +67,9 @@ export class ContactService {
   public updateContact(contact: any, contactId: any) {
     const options: any = {
       headers: {
-        'Authorization': localStorage.getItem('token')
-      }
-    }
+        Authorization: localStorage.getItem('token'),
+      },
+    };
     let dataURL: string = `${this.serverUrl}/contacts/edit/${contactId}`;
     return this.httpClient.patch(dataURL, contact, options);
   }
@@ -83,9 +82,9 @@ export class ContactService {
   public deleteteContact(contactId: string): Observable<{}> {
     const options: any = {
       headers: {
-        'Authorization': localStorage.getItem('token')
-      }
-    }
+        Authorization: localStorage.getItem('token'),
+      },
+    };
     let dataURL: string = `${this.serverUrl}/contacts/${contactId}`;
     return this.httpClient
       .delete<{}>(dataURL, options)
@@ -95,34 +94,42 @@ export class ContactService {
   public findContact(name: string) {
     const options: any = {
       headers: {
-        'Authorization': localStorage.getItem('token')
+        Authorization: localStorage.getItem('token'),
+      },
+    };
+    let dataURL: string = `${this.serverUrl}/contacts/search/${name}`;
+    return this.httpClient.get(dataURL, options);
+  }
+
+  public getGoogleContact() {
+    const options : any = {
+      headers: {
+        Authorization: localStorage.getItem('gToken')
       }
     }
-    let dataURL: string = `${this.serverUrl}/contacts/search/${name}`;
-    return this.httpClient.get(dataURL,options);
+    let dataURL : string = `${this.serverUrl}/api/people`
+    return this.httpClient.get(dataURL, options)
   }
 
   public search(name: string) {
     const options: any = {
       headers: {
-        'Authorization': localStorage.getItem('token')
-      }
-    }
+        Authorization: localStorage.getItem('token'),
+      },
+    };
     let dataURL: string = `${this.serverUrl}/contacts/search`;
     return this.httpClient
       .post(
         dataURL,
         { payload: name },
         options
-        // {
-        //   headers: new HttpHeaders({ 'content-type': 'application/json' }),
-        // }
       )
       .pipe
       // map(data=> data.payload)
       ();
     // return this.httpClient.get(dataURL)
   }
+
 
   public handleError(error: HttpErrorResponse) {
     let errorMessage: string = '';

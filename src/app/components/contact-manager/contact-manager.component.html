@@ -44,7 +44,7 @@
                               Edit Profile <i class="fa fa-pen ms-2"></i></a>
                           </p>
                         </li>
-                        <li class="list-group-item">
+                        <li class="list-group-item" *ngIf="!gToken">
                           <p class="h3 text-primary fw-bold">
                             <a routerLink="/contacts/changePassword" class="navbar-brand">
                               Change Password <i class="fa fa-pen ms-2"></i></a>
@@ -134,5 +134,5 @@
   </div>
 </div>
 
-
+<button type="button" class="m-5 btn btn-info" *ngIf="gToken" (click)="getGContact()">sync</button>
 <!-- <pre>{{contacts | json}}</pre> -->
