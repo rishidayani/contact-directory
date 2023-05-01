@@ -50,7 +50,7 @@
             <input formControlName="mobile" required="true" min="1000000000" name="mobile" type="number" class="form-control" placeholder="Number">
         </div>
         <div class="mb-2">
-            <button type="submit" class="btn btn-primary" value="Create">Create</button>
+            <button type="submit" [disabled]="!createForm.valid" class="btn btn-primary" value="Create">Create</button>
             <a routerLink="/" class="btn btn-dark ms-2">Close</a>
         </div>
       </form>

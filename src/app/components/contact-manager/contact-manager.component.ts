@@ -38,7 +38,7 @@ export class ContactManagerComponent implements OnInit {
   ngOnInit(): void {
     this.getAllContactsFromServer();
     this.profile();
-    this.autologout();    
+    this.autologout();
   }
 
   //view Profile
@@ -56,7 +56,7 @@ export class ContactManagerComponent implements OnInit {
   //Google account sync
   public getGContact() {
     this.contactService.getGoogleContact().subscribe(
-      (data: any) => {        
+      (data: any) => {
         const a: any = [];
         const b: any = [];
         for (let i = 0; i < this.contacts.length; i++) {
@@ -69,7 +69,7 @@ export class ContactManagerComponent implements OnInit {
               firstName: data[i].names[0].givenName,
               lastName: data[i].names[0].familyName,
               mobile: data[i].phoneNumbers[0].canonicalForm.slice(3),
-              photo: data[i].photos[0].url
+              photo: data[i].photos[0].url,
             });
           }
         }
@@ -83,7 +83,7 @@ export class ContactManagerComponent implements OnInit {
             mobile: a[i].mobile,
             firstName: a[i].firstName,
             lastName: a[i].lastName,
-            photo: a[i].photo
+            photo: a[i].photo,
           };
           this.contactService.createContact(contact).subscribe();
         }
@@ -111,11 +111,11 @@ export class ContactManagerComponent implements OnInit {
 
   //Delete contact
   public deleteContact(contactId: string) {
-      if (contactId) {
-        this.contactService.deleteteContact(contactId).subscribe((data) => {
-          this.getAllContactsFromServer();
-        });
-      }
+    if (contactId) {
+      this.contactService.deleteteContact(contactId).subscribe((data) => {
+        this.getAllContactsFromServer();
+      });
+    }
   }
 
   //Download all the contacts as an csv file
@@ -148,11 +148,9 @@ export class ContactManagerComponent implements OnInit {
 
   //delete user profile
   public deleteUserProfile() {
-    if (window.confirm('Are you sure you want to delete Your profile')) {
-      this.authService.deleteProfile().subscribe(() => {
-        this.router.navigate(['/contacts/auth']);
-      });
-    }
+    this.authService.deleteProfile().subscribe(() => {
+      this.router.navigate(['/contacts/auth']);
+    });
   }
 
   //Logging out an user from system
