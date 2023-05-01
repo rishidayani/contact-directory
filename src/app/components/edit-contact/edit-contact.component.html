@@ -7,19 +7,27 @@
   </div>
 </div>
 
-<!-- Edit Contact Form -->
-<div class="container">
+<!-- Edit Contact Form Template Drivven approach -->
+<!-- <div class="container">
   <div class="row">
     <div class="col-sm-4">
       <form #form="ngForm"  (ngSubmit)="submitUpdate(form.value)">
         <div class="mb-2">
             <input 
             required="true"
-            [(ngModel)]="contact.name"
-            [value]="contact.name"
-            name="name"
-            type="text" class="form-control" placeholder="Name">
+            [(ngModel)]="contact.firstName"
+            [value]="contact.firstName"
+            name="firstName"
+            type="text" class="form-control" placeholder="First Name">
         </div>
+        <div class="mb-2">
+          <input 
+          required="true"
+          [(ngModel)]="contact.lastName"
+          [value]="contact.lastName"
+          name="lastName"
+          type="text" class="form-control" placeholder="Last Name">
+      </div>
         <div class="mb-2">
           <input [(ngModel)]="contact.photo" [value]="contact.photo" name="photo" type="text" class="form-control" placeholder="Photo Url">
         </div>
@@ -34,6 +42,51 @@
         </div>
         <div class="mb-2">
             <button type="submit" [disabled]="!form.valid" class="btn btn-primary" value="Update">Update </button>
+            <a routerLink="/" class="btn btn-dark ms-2">Close</a>
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-4">
+      <img [src]="contact.photo" alt="User Photo" class="c-img">
+    </div>
+  </div>
+</div> -->
+
+<!-- Edit Contact form using  -->
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <form [formGroup]="editForm" (ngSubmit)="submitUpdate()">
+        <div class="mb-2">
+            <input 
+            required="true"
+            [(ngModel)]="contact.firstName"
+            formControlName="firstName"
+            name="firstName"
+            type="text" class="form-control" placeholder="First Name">
+        </div>
+        <div class="mb-2">
+          <input 
+          required="true"
+          [(ngModel)]="contact.lastName"
+          formControlName="lastName"
+          name="lastName"
+          type="text" class="form-control" placeholder="Last Name">
+      </div>
+        <div class="mb-2">
+          <input [(ngModel)]="contact.photo" formControlName="photo" name="photo" type="text" class="form-control" placeholder="Photo Url">
+        </div>
+        <div class="mb-2">
+            <input 
+            required="true"
+            [(ngModel)]="contact.mobile"
+            formControlName="mobile"
+            name="mobile"
+            min="1000000000"
+            type="number" class="form-control" placeholder="Number">
+        </div>
+        <div class="mb-2">
+            <button type="submit" [disabled]="!editForm.valid" class="btn btn-primary" value="Update">Update </button>
             <a routerLink="/" class="btn btn-dark ms-2">Close</a>
         </div>
       </form>

@@ -7,7 +7,7 @@
   </div>
 </div>
 <!-- Create Contact Form -->
-<div class="container">
+<!-- <div class="container">
   <div class="row">
     <div class="col-sm-4">
       <form #f_add="ngForm" (ngSubmit)="createContact(f_add.value)">
@@ -30,5 +30,33 @@
       <img [src]="contact.photo" alt="" class="c-img">
     </div>
   </div>
-</div>
+</div> -->
 <!-- <pre>{{contact | json}}</pre> -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <form [formGroup]="createForm" (ngSubmit)="createContact()">
+        <div class="mb-2">
+            <input formControlName="firstName" required="true" name="name" type="text" class="form-control" placeholder="First Name">
+        </div>
+        <div class="mb-2">
+          <input formControlName="lastName" required="true" name="name" type="text" class="form-control" placeholder="Last Name">
+      </div>
+        <div class="mb-2">
+          <input formControlName="photo" [(ngModel)]="contact.photo" name="photo" type="text" class="form-control" placeholder="Photo Url">
+        </div>
+        <div class="mb-2">
+            <input formControlName="mobile" required="true" min="1000000000" name="mobile" type="number" class="form-control" placeholder="Number">
+        </div>
+        <div class="mb-2">
+            <button type="submit" class="btn btn-primary" value="Create">Create</button>
+            <a routerLink="/" class="btn btn-dark ms-2">Close</a>
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-4">
+      <img [src]="contact.photo" alt="" class="c-img">
+    </div>
+  </div>
+</div>

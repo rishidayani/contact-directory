@@ -1,8 +1,10 @@
 export interface IContact {
-  id: string;
+  _id: string;
   name: string;
+  firstName: string;
+  lastName: string;
   photo: string;
   mobile: string;
-  created_at?: Date;
-  updated_at?: Date;
+  createdAt?: string;
+  updatedAt?: string;
 }

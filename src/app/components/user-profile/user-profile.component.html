@@ -11,7 +11,9 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-2">
-        <img [src]="user.image" alt="User Photo" class="c-img">
+        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#profilePhotoModal">
+          <img [src]="user.image" alt="User Photo" class="c-img">
+        </button>
       </div>
       <div class="col-sm-6">
         <ul class="list-group">
@@ -29,4 +31,17 @@
       </div>
     </div>
   </div>
-  
+
+<!--Profile Photo Modal -->
+<div class="modal fade" id="profilePhotoModal" tabindex="-1" aria-labelledby="profilePhotoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body image-container">
+        <div class="image-container">
+          <button type="button" class="btn-close button-over-image" data-bs-dismiss="modal" aria-label="Close"></button>
+          <img [src]="user.image" alt="User Photo" class="modal-photo">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

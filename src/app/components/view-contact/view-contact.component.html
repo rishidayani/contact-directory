@@ -10,20 +10,27 @@
 <!-- Contact Details -->
 <div class="container">
   <div class="row">
-    <div class="col-sm-2">
-      <img [src]="contact.photo" alt="User Photo" class="c-img">
+    <div class="col-md-2 mx-2">
+      <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <img [src]="contact.photo" alt="User Photo" class="c-img">
+      </button>
     </div>
-    <div class="col-sm-6">
+    <div class="col-md-4">
       <ul class="list-group">
-        <li class="list-group-item list-group-item-primary">Name: <span class="fw-bold">{{contact.name}}</span></li>
+        <li class="list-group-item list-group-item-primary">
+          First Name: <span class="fw-bold">{{contact.firstName}}</span>
+        </li>
+        <li class="list-group-item list-group-item-primary">
+          Last Name: <span class="fw-bold">{{contact.lastName}}</span>
+        </li>
         <li class="list-group-item list-group-item-primary">
           Mobile: <span class="fw-bold">{{contact.mobile}}</span>
         </li>
         <li class="list-group-item list-group-item-primary">
-          Created_at: <span class="fw-bold">{{contact.createdAt}}</span>
+          Created_at: <span class="fw-bold">{{contact.createdAt | date : 'short'}}</span>
         </li>
         <li class="list-group-item list-group-item-primary">
-          Last Updated: <span class="fw-bold">{{contact.updatedAt}}</span>
+          Last Updated: <span class="fw-bold">{{contact.updatedAt | date : 'short'}}</span>
         </li>
       </ul>
     </div>
@@ -31,7 +38,21 @@
   <!-- <pre>{{contact | json}}</pre> -->
   <div class="row mt-3">
     <div class="col">
-        <a routerLink="/" class="btn btn-danger">Back</a>
+      <a routerLink="/" class="btn btn-danger">Back</a>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="image-container">
+          <button type="button" class="btn-close button-over-image" data-bs-dismiss="modal" aria-label="Close"></button>
+          <img [src]="contact.photo" alt="User Photo" class="modal-photo">
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -17,9 +17,11 @@ export class ViewContactComponent implements OnInit {
     createdAt: '',
     _id: '',
     updatedAt: '',
-    photo: ''
+    photo: '',
+    firstName: '',
+    lastName: '',
   };
-  public errorMessage: string |  null = null
+  public errorMessage: string | null = null;
 
   constructor(
     private acticatedRoute: ActivatedRoute,
@@ -32,12 +34,10 @@ export class ViewContactComponent implements OnInit {
     });
 
     if (this.contactId) {
-      this.contactService
-        .getContact(this.contactId)
-        .subscribe((data: any) => {
-          // console.log(data)
-          this.contact = data;
-        });
+      this.contactService.getContact(this.contactId).subscribe((data: any) => {
+        // console.log(data);
+        this.contact = data;
+      });
     }
   }
 }

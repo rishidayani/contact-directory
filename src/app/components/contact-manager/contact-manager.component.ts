@@ -38,7 +38,7 @@ export class ContactManagerComponent implements OnInit {
   ngOnInit(): void {
     this.getAllContactsFromServer();
     this.profile();
-    this.autologout();
+    this.autologout();    
   }
 
   //view Profile
@@ -56,30 +56,38 @@ export class ContactManagerComponent implements OnInit {
   //Google account sync
   public getGContact() {
     this.contactService.getGoogleContact().subscribe(
-      (data: any) => {
+      (data: any) => {        
         const a: any = [];
         const b: any = [];
         for (let i = 0; i < this.contacts.length; i++) {
           b.push(this.contacts[i].mobile);
         }
         for (let i = 0; i < data.length; i++) {
-
           if (!b.includes(data[i].phoneNumbers[0].canonicalForm.slice(3))) {
             a.push({
               name: data[i].names[0].displayName,
+              firstName: data[i].names[0].givenName,
+              lastName: data[i].names[0].familyName,
               mobile: data[i].phoneNumbers[0].canonicalForm.slice(3),
+              photo: data[i].photos[0].url
             });
           }
         }
+        if (a.length === 0) {
+          alert('All contacts are up to date with your google account');
+        }
 
-        for (let i = 0; i< a.length; i++) {
+        for (let i = 0; i < a.length; i++) {
           let contact = {
             name: a[i].name,
             mobile: a[i].mobile,
-          }
-          this.contactService.createContact(contact).subscribe()
+            firstName: a[i].firstName,
+            lastName: a[i].lastName,
+            photo: a[i].photo
+          };
+          this.contactService.createContact(contact).subscribe();
         }
-        this.getAllContactsFromServer()
+        this.getAllContactsFromServer();
       },
       (e) => {
         console.log(e);
@@ -103,13 +111,11 @@ export class ContactManagerComponent implements OnInit {
 
   //Delete contact
   public deleteContact(contactId: string) {
-    if (window.confirm('Are you sure you want to delete this contact')) {
       if (contactId) {
         this.contactService.deleteteContact(contactId).subscribe((data) => {
           this.getAllContactsFromServer();
         });
       }
-    }
   }
 
   //Download all the contacts as an csv file
@@ -172,7 +178,7 @@ export class ContactManagerComponent implements OnInit {
   autologout() {
     this.tokenExpirationTimer = setTimeout(() => {
       this.logout();
-    }, 3599000);
+    }, 3585000);
   }
 
   openProfileDialogeBox() {
