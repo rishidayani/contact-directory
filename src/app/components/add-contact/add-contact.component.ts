@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { IContact } from 'src/app/models/IContact';
-// import { IContact } from 'src/app/models/IContact';
 import { ContactService } from 'src/app/services/contact.service';
 
 @Component({
@@ -24,7 +24,11 @@ export class AddContactComponent implements OnInit {
   show: boolean = false;
   createForm: FormGroup | any;
 
-  constructor(private contactService: ContactService, private router: Router) {}
+  constructor(
+    private contactService: ContactService,
+    private router: Router,
+    private toaster: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.createForm = new FormGroup({
@@ -59,7 +63,7 @@ export class AddContactComponent implements OnInit {
         this.router.navigate(['/']).then();
       },
       (error) => {
-        alert(error.error);
+        this.toaster.warning(error.error);
         this.errorMessage = error;
         this.router.navigate(['/contacts/add']).then();
       }

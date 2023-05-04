@@ -1,0 +1,39 @@
+<div class="form-group col-md-12">
+    <div class="row">
+      <div class="col">
+        <div class="input-group">
+          <input class="form-control"
+                 placeholder="yyyy-mm-dd"
+                 name="datePicker"
+                 [(ngModel)]="date"
+                 ngbDatepicker #dp="ngbDatepicker"
+                 (keyup)="getDateManually($event)"
+                 (dateSelect)="getDateByCalender($event)">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary"
+                    (click)="dp.toggle()"
+                    (click)="hideContactList()"
+                    type="button">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+        <div>
+          <p class="form-control" *ngIf="!isValidDate">Please enter a valid date</p>
+          <section class="form-control col-md-12" *ngIf="hasDate">
+            <p *ngIf="contacts.length < 1">No Contact is created after this date</p>
+            <div class="row d-flex flex-row justify-content-center align-items-center" *ngFor="let contact of contacts">
+              <div class="col-md-1">
+                <img [src]="contact.photo" class="contact-img" alt="User Photo">
+              </div>
+              <div class="col">
+                <ul class="list-group">
+                  <li class="list-group-item"  (click)="goToContact(contact._id)">{{contact.name}} </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>

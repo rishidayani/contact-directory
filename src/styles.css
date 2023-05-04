@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+
+/*  regular style toast */
+@import "ngx-toastr/toastr";
+
 body {
   /* background-color: #9a90e4; */
   background-color: #fff;
@@ -26,10 +30,17 @@ body {
   background-color: #146c94;
 }
 
+.bg-cus {
+  background-color: #afd3e2;
+}
+
 .text-color {
   color: #fff;
 }
 
+.text-cus {
+  color: #34a9db;
+}
 .modal-photo {
   height: 500px;
   width: 100%;

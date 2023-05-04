@@ -9,7 +9,6 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./edit-profile.component.css'],
 })
 export class EditProfileComponent implements OnInit {
-  error: string | null = null;
   user: any = {
     userName: '',
     email: '',
@@ -28,7 +27,7 @@ export class EditProfileComponent implements OnInit {
 
   onSubmitUpdate(authForm: NgForm) {
     this.authService.editProfile(authForm).subscribe(() => {
-      this.router.navigate(['/contacts/me']).then()
-    })
+      this.router.navigate(['/contacts/me']).then();
+    });
   }
 }

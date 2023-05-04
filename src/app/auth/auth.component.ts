@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 // import { UserInfo } from 'angular-oauth2-oidc';
 // import { HttpClient } from '@angular/common/http';
 import jwt_decode from 'jwt-decode';
+import { ToastrService } from 'ngx-toastr';
 
 // import { gapi } from 'gapi-script';
 
@@ -38,6 +39,7 @@ export class AuthComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private toaster: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -93,7 +95,7 @@ export class AuthComponent implements OnInit {
         localStorage.setItem('token', 'Bearer ' + resData.token);
       },
       (error) => {
-        this.error = error;
+        this.toaster.error(error);
       }
     );
     form.reset();
@@ -101,16 +103,18 @@ export class AuthComponent implements OnInit {
 
   handleCredentialResponse = (response: any) => {
     // console.log(response);
-    
+
     const idToken = response.credential;
-    localStorage.setItem('gToken', idToken)
+    localStorage.setItem('gToken', idToken);
     this.decodedToken = jwt_decode(idToken);
     // console.log(this.decodedToken);
 
-    this.authService.gAuthenticate({decoded :this.decodedToken, idToken}).subscribe((res: any) => {
-      this.router.navigate(['/contacts/admin']);
-      localStorage.setItem('token', 'Bearer ' + res.token);
-    });
+    this.authService
+      .gAuthenticate({ decoded: this.decodedToken, idToken })
+      .subscribe((res: any) => {
+        this.router.navigate(['/contacts/admin']);
+        localStorage.setItem('token', 'Bearer ' + res.token);
+      });
   };
 
   // decodeJwtResponse(response : any) {
@@ -271,25 +275,25 @@ export class AuthComponent implements OnInit {
   // }
 
   // ngAfterViewInit(): void {
-    // gapi.load('auth2', () => {
-    //   gapi.auth2.init({
-    //     client_id: 'YOUR_CLIENT_ID'
-    //   });
-    // });
-    // gapi.load('client', () => {
-    //   gapi.client.init({
-    //     apiKey: '<your_api_key>',
-    //     clientId: '<your_client_id>',
-    //     discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
-    //     scope: 'https://www.googleapis.com/auth/calendar.events'
-    //   })
-    //   .then(() => {
-    //     // You can now call the Google API methods using gapi.client.<api_name>.<method_name>()
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error loading GAPI client:', error);
-    //   });
-    // });
+  // gapi.load('auth2', () => {
+  //   gapi.auth2.init({
+  //     client_id: 'YOUR_CLIENT_ID'
+  //   });
+  // });
+  // gapi.load('client', () => {
+  //   gapi.client.init({
+  //     apiKey: '<your_api_key>',
+  //     clientId: '<your_client_id>',
+  //     discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
+  //     scope: 'https://www.googleapis.com/auth/calendar.events'
+  //   })
+  //   .then(() => {
+  //     // You can now call the Google API methods using gapi.client.<api_name>.<method_name>()
+  //   })
+  //   .catch((error) => {
+  //     console.error('Error loading GAPI client:', error);
+  //   });
+  // });
   // }
 
   // public onSignIn(googleUser: any) {

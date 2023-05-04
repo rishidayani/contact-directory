@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ContactService } from 'src/app/services/contact.service';
 
@@ -32,13 +33,13 @@ export class ContactManagerComponent implements OnInit {
   constructor(
     private contactService: ContactService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toaster: ToastrService
   ) {}
 
   ngOnInit(): void {
     this.getAllContactsFromServer();
     this.profile();
-    this.autologout();
   }
 
   //view Profile
@@ -74,7 +75,9 @@ export class ContactManagerComponent implements OnInit {
           }
         }
         if (a.length === 0) {
-          alert('All contacts are up to date with your google account');
+          this.toaster.warning(
+            'All contacts are up to date with your google account'
+          );
         }
 
         for (let i = 0; i < a.length; i++) {
@@ -119,7 +122,7 @@ export class ContactManagerComponent implements OnInit {
   }
 
   //Download all the contacts as an csv file
-  exportContacts() {
+  public exportContacts() {
     const contactsArray = Array.from(this.contacts); // convert contacts to an array
     const csvRows = [];
     const headers = ['name', 'mobile'];
@@ -154,29 +157,17 @@ export class ContactManagerComponent implements OnInit {
   }
 
   //Logging out an user from system
-  logout() {
+  public logout() {
     this.authService.logout().subscribe(
       () => {
-        // console.log(data);
         localStorage.removeItem('token');
         localStorage.removeItem('gToken');
-        if (this.tokenExpirationTimer) {
-          clearTimeout(this.tokenExpirationTimer);
-        }
-        this.tokenExpirationTimer = null;
       },
       (e) => {
         console.log(e);
       }
     );
     this.router.navigate(['/contacts/auth']);
-  }
-
-  //auto logout after token expiers
-  autologout() {
-    this.tokenExpirationTimer = setTimeout(() => {
-      this.logout();
-    }, 3585000);
   }
 
   openProfileDialogeBox() {

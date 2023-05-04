@@ -8,21 +8,54 @@ import { AuthComponent } from './auth/auth.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
-  {path: '' , redirectTo: 'contacts/admin', pathMatch: 'full'},
-  {path: 'contacts/admin', component: ContactManagerComponent},
-  {path: 'contacts/add', component: AddContactComponent},
-  {path: 'contacts/edit/:contactId', component: EditContactComponent},
-  {path: 'contacts/view/:contactId', component: ViewContactComponent},
-  {path: 'contacts/me', component: UserProfileComponent},
-  {path: 'contacts/editProfile', component: EditProfileComponent},
-  {path: 'contacts/changePassword', component: ChangePasswordComponent},
-  {path: 'contacts/auth', component: AuthComponent},
+  {
+    path: '',
+    redirectTo: 'contacts/admin',
+    pathMatch: 'full',
+  },
+  {
+    path: 'contacts/admin',
+    component: ContactManagerComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'contacts/add',
+    component: AddContactComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'contacts/edit/:contactId',
+    component: EditContactComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'contacts/view/:contactId',
+    component: ViewContactComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'contacts/me',
+    component: UserProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'contacts/editProfile',
+    component: EditProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'contacts/changePassword',
+    component: ChangePasswordComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'contacts/auth', component: AuthComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

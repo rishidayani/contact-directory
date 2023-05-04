@@ -102,13 +102,13 @@ export class ContactService {
   }
 
   public getGoogleContact() {
-    const options : any = {
+    const options: any = {
       headers: {
-        Authorization: localStorage.getItem('gToken')
-      }
-    }
-    let dataURL : string = `${this.serverUrl}/api/people`
-    return this.httpClient.get(dataURL, options)
+        Authorization: localStorage.getItem('gToken'),
+      },
+    };
+    let dataURL: string = `${this.serverUrl}/api/people`;
+    return this.httpClient.get(dataURL, options);
   }
 
   public search(name: string) {
@@ -119,17 +119,22 @@ export class ContactService {
     };
     let dataURL: string = `${this.serverUrl}/contacts/search`;
     return this.httpClient
-      .post(
-        dataURL,
-        { payload: name },
-        options
-      )
+      .post(dataURL, { payload: name }, options)
       .pipe
       // map(data=> data.payload)
       ();
     // return this.httpClient.get(dataURL)
   }
 
+  public filterByDate(date: Date) {
+    const options: any = {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    };
+    let dataURL: string = `${this.serverUrl}/contacts/filter`;
+    return this.httpClient.post(dataURL, { date }, options);
+  }
 
   public handleError(error: HttpErrorResponse) {
     let errorMessage: string = '';

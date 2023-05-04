@@ -43,7 +43,7 @@ export class EditContactComponent implements OnInit {
       firstName: new FormControl(this.contact.firstName),
       lastName: new FormControl(this.contact.lastName),
       photo: new FormControl(this.contact.photo),
-      mobile: new FormControl(this.contact.mobile)
+      mobile: new FormControl(this.contact.mobile),
     });
   }
 
@@ -62,9 +62,12 @@ export class EditContactComponent implements OnInit {
   //   }
   // }
   public submitUpdate() {
-      if (this.contactId) {
-        this.editForm.value.name = this.contact.firstName + ' ' + this.contact.lastName;
-        this.contactService.updateContact(this.editForm.value, this.contactId).subscribe(
+    if (this.contactId) {
+      this.editForm.value.name =
+        this.contact.firstName + ' ' + this.contact.lastName;
+      this.contactService
+        .updateContact(this.editForm.value, this.contactId)
+        .subscribe(
           () => {
             this.router.navigate(['/']).then();
           },
@@ -73,6 +76,6 @@ export class EditContactComponent implements OnInit {
             this.router.navigate([`/contacts/edit/${this.contactId}`]).then();
           }
         );
-      }
     }
+  }
 }

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ContactService } from '../services/contact.service';
-import { IContact } from '../models/IContact';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { ContactService } from '../../services/contact.service';
+import { IContact } from '../../models/IContact';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
 })
-export class SearchComponent  {
+export class SearchComponent {
   // public contactId: string  = '642d726af97948af0e7b209f';
   // private serverUrl:string = `http://localhost:3000`
   contact: IContact | any = {
@@ -28,7 +28,11 @@ export class SearchComponent  {
     },
   ];
   hasQuery: boolean = false;
-  constructor(private contactService: ContactService, private router: Router) {}
+  constructor(
+    private contactService: ContactService,
+    private router: Router,
+    private elementRef: ElementRef
+  ) {}
 
   timeoutId: any;
   search(event: Event) {
@@ -60,5 +64,22 @@ export class SearchComponent  {
       // console.log(data);
     });
     // console.log(name);
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.hasQuery = false;
+    } else {
+      let query: string = (event.target as HTMLInputElement).value;
+      if (typeof query !== 'string') {
+        return; // Exit early if the query is not a string
+      }
+      let matchSpaces: any = query.match(/\s*/);
+      // If the user clicks inside the search input field, show the search results section
+      if (matchSpaces[0] !== query) {
+        this.hasQuery = true;
+      } else this.hasQuery = false;
+    }
   }
 }

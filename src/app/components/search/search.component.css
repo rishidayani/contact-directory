@@ -1,0 +1,16 @@
+.search-img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+section.form-control {
+  position: absolute;
+  /* top: 0; */
+  /* left: 0; */
+  margin-left: 10px;
+  width: 39%;
+  z-index: 9999;
+  max-height: 200px;
+  overflow-y: auto;
+}
