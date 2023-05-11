@@ -1,0 +1,84 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-success" (click)="getUsers()" data-bs-toggle="modal"
+                data-bs-target="#shareModal">
+                Share Contacts
+            </button>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="shareModalLabel">Share With ....</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <section class="form-control col-md-6" style="margin-left: 0;" *ngIf="users.length >0">
+                    <div class="row d-flex flex-row mt-3 justify-content-center align-items-center"
+                        *ngFor="let user of users; index as i">
+                        <div class="col-sm-1">
+                            <img [src]="user.image" class="user-img" alt="User Photo">
+                        </div>
+                        <div class="col">
+                            <!-- <ul class="list-group">
+                                <li class="list-group-item">{{user.userName}} </li>
+                            </ul> -->
+                            <div class="accordion accordion-flush" [attr.id]="'user'+i">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" [attr.id]="'user'+i">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" [attr.data-bs-target]="'#userCollapse'+i"
+                                            aria-expanded="false" [attr.aria-controls]="'userCollapse'+i">
+                                            {{user.userName}}
+                                        </button>
+                                    </h2>
+                                    <div [attr.id]="'userCollapse'+i" class="accordion-collapse collapse"
+                                        [attr.aria-labelledby]="'user'+i" [attr.data-bs-parent]="'#user'+i">
+                                        <div class="accordion-body row">
+                                            <div class="col-sm-6 py-2">
+                                                Email: {{user.email}}
+                                            </div>
+                                            <div class="col-sm-3 py-2">
+                                                Age: {{user.age}}
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button class="btn btn-outline-secondary"
+                                                    (click)="selectUser(i)">Select</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <hr *ngIf="selectedUsers.length>0">
+                <section class="form-control col-md-4" style="margin-left: 0;" *ngIf="selectedUsers.length>0">
+                    <!-- <p *ngIf="contacts.length < 1">No Contact with such a name</p> -->
+                    <div class="row d-flex flex-row justify-content-center align-items-center my-3"
+                        *ngFor="let user of selectedUsers; index as i">
+                        <div class="col-md-1">
+                            <img [src]="user.image" class="user-img" alt="User Photo">
+                        </div>
+                        <div class="col" style="width: 70%;">
+                            <div class="ms-4">{{user.userName}}</div>
+                        </div>
+                        <div class="col-md-1 me-4">
+                            <button class="btn btn-close" (click)="removeUserFromSelectedList(i)"></button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">Close</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="shareContact()">Share</button>
+            </div>
+        </div>
+    </div>
+</div>

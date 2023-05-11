@@ -92,6 +92,16 @@ export class AuthService {
     return this.http.get(`${this.serverUrl}/users/me`, options);
   }
 
+  // All user except loggedin to share contact
+  getAllUser() {
+    const options: any = {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    };
+    const dataURL = `${this.serverUrl}/users/userList`;
+    return this.http.get(dataURL, options);
+  }
   gAuthenticate(data: any) {
     let dataURL = `${this.serverUrl}/gAuthenticate`;
     return this.http.post(dataURL, data).pipe(

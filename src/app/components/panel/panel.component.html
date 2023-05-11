@@ -1,0 +1,101 @@
+<i class="btn fa-solid fa-bars ms-2 my-2 h3" (click)="displayContact()" (click)="togleSidebarValue()"
+    *ngIf="!toggleSidebar"></i>
+<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark cus col-md-3" *ngIf="toggleSidebar">
+    <div class="row">
+        <div class="col">
+            <i class="btn fa-solid fa-bars my-2" style="color: white;" (click)="togleSidebarValue()"></i>
+            <span class="ms-2">Shared Contacts</span>
+        </div>
+        <hr>
+        <div class="col">
+            <section class="form-control col-md-6">
+                <p *ngIf="sharedData.length < 1">No Contacts are shared with you</p>
+                <div class="container" *ngFor="let shared of sharedData; index as i">
+                    <div class="row" *ngIf="shared.contacts.length>0">
+                        <div class="col-md-1 mt-1 me-2">
+                            <img [src]="shared.senderDetails.image" class="user-img mt-1" alt="User Photo">
+                        </div>
+                        <div class="col">
+                            <div class="col">
+                                <div class="accordion accordion-flush" [attr.id]="'user'+i">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" [attr.id]="'user'+i">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" [attr.data-bs-target]="'#userCollapse'+i"
+                                                aria-expanded="false" [attr.aria-controls]="'userCollapse'+i">
+                                                {{shared.senderDetails.userName}}
+                                            </button>
+                                        </h2>
+                                        <div [attr.id]="'userCollapse'+i" class="accordion-collapse collapse"
+                                            [attr.aria-labelledby]="'user'+i" [attr.data-bs-parent]="'#user'+i">
+                                            <div class="accordion-body row" style="padding: 0px;">
+                                                <!-- <ul class="list-group"
+                                                    *ngFor="let contact of shared.contacts; index as j">
+                                                    <li class="list-group-item">
+                                                        <img class="s-img" [src]="contact.photo" alt="">
+                                                        {{contact.name}}
+                                                        <button class="btn ms-auto" (click)=" addToDirectory(i,j)"><i
+                                                                class="fa-solid fa-check"></i></button> <button
+                                                            class="btn btn-close"></button>
+                                                    </li>
+                                                </ul> -->
+                                                <div class="row d-flex flex-row mt-3 justify-content-center align-items-center"
+                                                    *ngFor="let contact of shared.contacts index as j">
+                                                    <div class="col-sm-1">
+                                                        <img [src]="contact.photo" class="s-img" alt="Contact Photo">
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="accordion accordion-flush" [attr.id]="'contact'+j">
+                                                            <div class="accordion-item">
+                                                                <h2 class="accordion-header" [attr.id]="'contact'+j">
+                                                                    <button class="accordion-button collapsed"
+                                                                        type="button" data-bs-toggle="collapse"
+                                                                        [attr.data-bs-target]="'#contactCollapse'+j"
+                                                                        aria-expanded="false"
+                                                                        [attr.aria-controls]="'contactCollapse'+j">
+                                                                        {{contact.name}}
+                                                                    </button>
+                                                                </h2>
+                                                                <div [attr.id]="'contactCollapse'+j"
+                                                                    class="accordion-collapse collapse"
+                                                                    [attr.aria-labelledby]="'contact'+j"
+                                                                    [attr.data-bs-parent]="'#contact'+j">
+                                                                    <div class="accordion-body"
+                                                                        style="padding-left: 0px;">
+                                                                        <div class="container-fluid">
+                                                                            <div class="row">
+                                                                                <div class="col ms-4">
+                                                                                    {{contact.mobile}}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <button
+                                                                                        class="btn btn-outline-secondary"
+                                                                                        (click)=" addToDirectory(i,j)">add</button>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <button
+                                                                                        class="btn btn-outline-secondary"
+                                                                                        (click)="remove(i,j)">Remove</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

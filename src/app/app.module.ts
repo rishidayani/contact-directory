@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { OAuthModule } from 'angular-oauth2-oidc';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +19,8 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { ToastrModule } from 'ngx-toastr';
 import { FilterContactByDateComponent } from './components/filter-contact-by-date/filter-contact-by-date.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ShareContactComponent } from './components/share-contact/share-contact.component';
+import { PanelComponent } from './components/panel/panel.component';
 // import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 
 @NgModule({
@@ -36,6 +37,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     EditProfileComponent,
     ChangePasswordComponent,
     FilterContactByDateComponent,
+    ShareContactComponent,
+    PanelComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FormsModule,
     NgbModule,
     ReactiveFormsModule,
-    OAuthModule.forRoot(),
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     FormsModule,

@@ -136,6 +136,40 @@ export class ContactService {
     return this.httpClient.post(dataURL, { date }, options);
   }
 
+  public sendContact(recieverId: string, contacts: [], senderDetails: any) {
+    const options: any = {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    };
+    let dataURL: string = `${this.serverUrl}/contacts/shared`;
+    return this.httpClient.post(
+      dataURL,
+      { recieverId, contacts, senderDetails },
+      options
+    );
+  }
+
+  public getSharedContact() {
+    const options: any = {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    };
+    let dataURL: string = `${this.serverUrl}/shared`;
+    return this.httpClient.get(dataURL, options);
+  }
+
+  public deleteSharedContact(id: string, mobile: any) {
+    const options: any = {
+      headers: {
+        Authorization: localStorage.getItem('token'),
+      },
+    };
+    let dataURL: string = `${this.serverUrl}/shared`;
+    return this.httpClient.patch(dataURL, { id, mobile }, options);
+  }
+
   public handleError(error: HttpErrorResponse) {
     let errorMessage: string = '';
     if (error.error instanceof ErrorEvent) {

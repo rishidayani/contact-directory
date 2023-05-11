@@ -3,13 +3,8 @@ import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthResponseData, AuthService } from './auth.service';
 import { Router } from '@angular/router';
-// import { GoogleApiService } from '../services/google-api.service';
-// import { UserInfo } from 'angular-oauth2-oidc';
-// import { HttpClient } from '@angular/common/http';
 import jwt_decode from 'jwt-decode';
 import { ToastrService } from 'ngx-toastr';
-
-// import { gapi } from 'gapi-script';
 
 export interface User {
   getName(): string;

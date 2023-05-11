@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ContactService } from 'src/app/services/contact.service';
+import { ShareContactComponent } from '../share-contact/share-contact.component';
 
 @Component({
   selector: 'app-contact-manager',
@@ -10,6 +11,9 @@ import { ContactService } from 'src/app/services/contact.service';
   styleUrls: ['./contact-manager.component.css'],
 })
 export class ContactManagerComponent implements OnInit {
+  @ViewChild(ShareContactComponent) shareComponent:
+    | ShareContactComponent
+    | undefined;
   public loading: boolean = false;
   contacts = [
     {
@@ -25,6 +29,7 @@ export class ContactManagerComponent implements OnInit {
     image: '',
     userName: '',
   };
+  toggleSidebar = false;
   public errorMessage: string | null = null;
   showDialoge: boolean = false;
   tokenExpirationTimer: any = null;
@@ -40,6 +45,10 @@ export class ContactManagerComponent implements OnInit {
   ngOnInit(): void {
     this.getAllContactsFromServer();
     this.profile();
+  }
+
+  onToggle(toggled: boolean) {
+    this.toggleSidebar = toggled;
   }
 
   //view Profile
